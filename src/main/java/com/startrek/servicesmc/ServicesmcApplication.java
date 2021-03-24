@@ -28,5 +28,4 @@ public class ServicesmcApplication implements CommandLineRunner {
 		
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
 	}
-
 }
