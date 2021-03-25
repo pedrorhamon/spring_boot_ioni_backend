@@ -18,8 +18,6 @@ public class CategoriaService {
 	public Categoria search(Integer id) {
 		Optional<Categoria> obj = repp.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException
-		("Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
-		
+		("Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));	
 	}
-
 }
