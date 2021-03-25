@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.startrek.servicesmc.domain.Categoria;
 import com.startrek.servicesmc.domain.Cidade;
+import com.startrek.servicesmc.domain.Cliente;
+import com.startrek.servicesmc.domain.Endereco;
 import com.startrek.servicesmc.domain.Estado;
 import com.startrek.servicesmc.domain.Produto;
+import com.startrek.servicesmc.domain.enums.TipoCliente;
 import com.startrek.servicesmc.repositories.CategoriaRepository;
 import com.startrek.servicesmc.repositories.CidadeRepository;
+import com.startrek.servicesmc.repositories.ClienteRepository;
+import com.startrek.servicesmc.repositories.EnderecoRepository;
 import com.startrek.servicesmc.repositories.EstadoRepository;
 import com.startrek.servicesmc.repositories.ProdutoRepository;
 
@@ -31,6 +36,11 @@ public class ServicesmcApplication implements CommandLineRunner {
 	@Autowired
 	private EstadoRepository estadoRepository;
 	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ServicesmcApplication.class, args);
@@ -68,5 +78,18 @@ public class ServicesmcApplication implements CommandLineRunner {
 		
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+		
+		Cliente cli1 = new Cliente(null, "Pedro Rhamon", "pedro@gmail.com","456484948498", TipoCliente.PESSOAFISICA);
+		
+		cli1.getTelefones().addAll(Arrays.asList("98885464", "45468898"));
+		
+		Endereco e1 = new Endereco(null, "Rua Joao tavares ferreira", "101", "apto 105", "Joao Paulo", "54165", cli1, c1);
+		Endereco e2 = new Endereco(null, "Rua Pedro tavares ferreira", "102", "apto 106", "Joao PauloII", "45932", cli1, c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+
 	}
 }
