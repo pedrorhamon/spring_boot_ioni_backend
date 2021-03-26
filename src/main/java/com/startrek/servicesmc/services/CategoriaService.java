@@ -1,5 +1,6 @@
 package com.startrek.servicesmc.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,10 @@ public class CategoriaService {
 		catch (DataIntegrityViolationException e) {
 			throw new DateIntegrityException("Não é possivel excluir uma categoria que possui produtos");
 		}
+	}
+	
+	public List<Categoria> findAll(){
+		return repp.findAll();
 	}
 		
 }
