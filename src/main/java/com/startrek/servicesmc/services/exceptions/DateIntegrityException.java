@@ -11,5 +11,4 @@ public class DateIntegrityException extends RuntimeException{
 	public DateIntegrityException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
-
 }
