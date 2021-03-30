@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.startrek.servicesmc.domain.Categoria;
 import com.startrek.servicesmc.dto.CategoriaDTO;
 import com.startrek.servicesmc.repositories.CategoriaRepository;
-import com.startrek.servicesmc.services.exceptions.DateIntegrityException;
+import com.startrek.servicesmc.services.exceptions.DataIntegrityException;
 import com.startrek.servicesmc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -45,7 +45,7 @@ public class CategoriaService {
 			repp.deleteById(id);
 		}
 		catch (DataIntegrityViolationException e) {
-			throw new DateIntegrityException("Não é possivel excluir uma categoria que possui produtos");
+			throw new DataIntegrityException("Não é possivel excluir uma categoria que possui produtos");
 		}
 	}
 	
