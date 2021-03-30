@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import com.startrek.servicesmc.domain.Categoria;
 import com.startrek.servicesmc.domain.Cidade;
@@ -31,6 +34,9 @@ import com.startrek.servicesmc.repositories.PagamentoRepository;
 import com.startrek.servicesmc.repositories.PedidoRepository;
 import com.startrek.servicesmc.repositories.ProdutoRepository;
 
+@Configuration
+@ComponentScan(basePackages="com.api")
+@PropertySource(value= {"classpath:application.properties"})
 @SpringBootApplication
 public class ServicesmcApplication implements CommandLineRunner {
 
