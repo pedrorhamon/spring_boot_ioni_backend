@@ -19,7 +19,7 @@ import com.startrek.servicesmc.services.exceptions.ObjectNotFoundException;
 public class PedidoService {
 	
 	@Autowired
-	private PedidoRepository repp;
+	private PedidoRepository repo;
 	
 	@Autowired
 	private BoletoService boletoService;
@@ -28,15 +28,15 @@ public class PedidoService {
 	private PagamentoRepository pagamentoRepository;
 	
 	@Autowired
-	private ProdutoService produtoService;
-	
-	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	
-	public Pedido search(Integer id) {
-		Optional<Pedido> obj = repp.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException
-		("Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));	
+	@Autowired
+	private ProdutoService produtoService;
+	
+	public Pedido find(Integer id) {
+		Optional<Pedido> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
 	}
 	
 	public Pedido insert(Pedido obj) {
@@ -48,11 +48,11 @@ public class PedidoService {
 			PagamentoComBoleto pagto = (PagamentoComBoleto) obj.getPagamento();
 			boletoService.preencherPagamentoComBoleto(pagto, obj.getInstante());
 		}
-		obj = repp.save(obj);
+		obj = repo.save(obj);
 		pagamentoRepository.save(obj.getPagamento());
 		for (ItemPedido ip : obj.getItems()) {
 			ip.setDesconto(0.0);
-			ip.setPreco(produtoService.search(ip.getProduto().getId()).getPreco());
+			ip.setPreco(produtoService.find(ip.getProduto().getId()).getPreco());
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItems());

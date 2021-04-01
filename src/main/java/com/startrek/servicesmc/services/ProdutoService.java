@@ -17,24 +17,23 @@ import com.startrek.servicesmc.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ProdutoService {
-	
+
 	@Autowired
-	private ProdutoRepository repp;
-	
+	private ProdutoRepository repo;
+
 	@Autowired
-	private CategoriaRepository cate;
-	
-	public Produto search(Integer id) {
-		Optional<Produto> obj = repp.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException
-		("Objeto não encontrado! Id: " + id + ", Tipo: " + Produto.class.getName()));	
+	private CategoriaRepository categoriaRepository;
+
+	public Produto find(Integer id) {
+		Optional<Produto> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Produto.class.getName()));
 	}
-	
-	public Page<Produto> search(String nome, List<Integer> ids, Integer page, Integer linesPerPage,
-			String orderBy, String direction){
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),orderBy);
-		List<Categoria> categorias = cate.findAllById(ids);
-		return repp.findDistinctByNomeContainingAndCategoriasIn(nome, categorias, pageRequest);
-		
+
+	public Page<Produto> search(String nome, List<Integer> ids, Integer page, Integer linesPerPage, String orderBy,
+			String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		List<Categoria> categorias = categoriaRepository.findAllById(ids);
+		return repo.findDistinctByNomeContainingAndCategoriasIn(nome, categorias, pageRequest);
 	}
 }
