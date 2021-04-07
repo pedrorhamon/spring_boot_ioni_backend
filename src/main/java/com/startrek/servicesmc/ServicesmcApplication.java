@@ -9,7 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @ComponentScan(basePackages = "com.api")
-@PropertySource(value = { "classpath:application-prod.properties" })
+@PropertySource(value = { "classpath:application-test.properties" })
 @SpringBootApplication
 public class ServicesmcApplication implements CommandLineRunner {
 
