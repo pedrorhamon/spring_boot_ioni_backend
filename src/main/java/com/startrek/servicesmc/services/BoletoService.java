@@ -3,8 +3,11 @@ package com.startrek.servicesmc.services;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.springframework.stereotype.Service;
+
 import com.startrek.servicesmc.domain.PagamentoComBoleto;
 
+@Service
 public class BoletoService {
 	
 	public void preencherPagamentoComBoleto(PagamentoComBoleto pagto, Date instantePedido) {
