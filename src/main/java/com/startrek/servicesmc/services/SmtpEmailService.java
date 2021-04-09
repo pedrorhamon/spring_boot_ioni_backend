@@ -1,10 +1,13 @@
 package com.startrek.servicesmc.services;
 
+import javax.mail.internet.MimeMessage;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 public class SmtpEmailService extends AbstractEmailService{
 
@@ -13,6 +16,9 @@ public class SmtpEmailService extends AbstractEmailService{
 	@Autowired
 	private MailSender mailSender;
 	
+	@Autowired
+	private JavaMailSender javaSender;
+	
 	@Override
 	public void senderEmail(SimpleMailMessage msg) {
 		LOG.info("Envio de email...");
@@ -20,7 +26,12 @@ public class SmtpEmailService extends AbstractEmailService{
 		LOG.info("Email enviado com sucesso!");
 		
 	}
-	
-	
 
+	@Override
+	public void sendHtmlEmail(MimeMessage msg) {
+		LOG.info("Envio de email...");
+		javaSender.send(msg);
+		LOG.info("Email enviado com sucesso!");
+		
+	}
 }
