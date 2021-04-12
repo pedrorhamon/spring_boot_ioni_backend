@@ -24,5 +24,4 @@ public class JWTUtil {
 				.signWith(SignatureAlgorithm.HS512, secret.getBytes())
 				.compact();
 	}
-
 }
